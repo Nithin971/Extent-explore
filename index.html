@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>College Events Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <h1 class="logo">College Events</h1>
+    <nav class="nav-tabs">
+      <button class="tab active" data-cat="all">All</button>
+      <button class="tab" data-cat="tech">Tech</button>
+      <button class="tab" data-cat="cultural">Cultural</button>
+      <button class="tab" data-cat="sports">Sports</button>
+      <button class="tab" data-cat="online">Online</button>
+      <button class="tab" data-cat="offline">Offline</button>
+    </nav>
+    <button class="add-btn" onclick="showAddForm()">➕ Add Event</button>
+  </header>
+
+  <!-- 🔎 Search Bar -->
+  <section class="search-section">
+    <input type="text" id="searchBar" placeholder="Search events by name or college...">
+  </section>
+
+  <!-- Event Cards -->
+  <main>
+    <section id="events-grid" class="cards-grid"></section>
+  </main>
+
+  <!-- 📌 Add Event Form (Modal) -->
+  <div id="addEventModal" class="modal">
+    <div class="modal-content">
+      <h2>Add New Event</h2>
+      <input type="text" id="eventName" placeholder="Event Name" required>
+      <input type="text" id="eventCollege" placeholder="College Name" required>
+      <input type="date" id="eventDate" required>
+      <select id="eventCategory">
+        <option value="tech">Tech</option>
+        <option value="cultural">Cultural</option>
+        <option value="sports">Sports</option>
+      </select>
+      <select id="eventMode">
+        <option value="online">Online</option>
+        <option value="offline">Offline</option>
+      </select>
+      <input type="url" id="eventLink" placeholder="Registration Link">
+      <label>Upload Event Image:</label>
+      <input type="file" id="eventImage" accept="image/*">
+
+      <div class="form-actions">
+        <button onclick="addEvent()">Add</button>
+        <button onclick="closeAddForm()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
