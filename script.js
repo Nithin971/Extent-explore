@@ -1,3 +1,47 @@
+// 🔑 Auth System
+function showSignup() {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("signupBox").style.display = "block";
+}
+function showLogin() {
+  document.getElementById("signupBox").style.display = "none";
+  document.getElementById("loginBox").style.display = "block";
+}
+
+function signup() {
+  const name = document.getElementById("signupName").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  if (!name || !email || !password) {
+    alert("Please fill all fields!");
+    return;
+  }
+  localStorage.setItem("user", JSON.stringify({ name, email, password }));
+  alert("Signup successful! Please login.");
+  showLogin();
+}
+
+function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (user && user.email === email && user.password === password) {
+    document.getElementById("authModal").style.display = "none";
+    document.getElementById("portal").style.display = "block";
+    renderEvents();
+  } else {
+    alert("Invalid credentials!");
+  }
+}
+
+function logout() {
+  document.getElementById("authModal").style.display = "flex";
+  document.getElementById("portal").style.display = "none";
+  showLogin();
+}
+
 // Sample Events
 let events = [
   { name: "Hackathon 2025", college: "KBN College", date: "2025-09-10", category: "tech", mode: "offline", link: "#", image: "" },
@@ -106,3 +150,4 @@ function addEvent() {
 
 // Initial Render
 renderEvents();
+
