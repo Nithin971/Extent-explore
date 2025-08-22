@@ -5,33 +5,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>College Events Portal</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Login/Signup Overlay */
+    #authModal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .auth-box {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 320px;
+      text-align: center;
+    }
+    .auth-box h2 { margin-bottom: 15px; }
+    .auth-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .auth-box button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 6px;
+      background: #27ae60;
+      color: white;
+      cursor: pointer;
+    }
+    .auth-box p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+    .auth-box a { color: #3498db; cursor: pointer; }
+  </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site-header">
-    <h1 class="logo">College Events</h1>
-    <nav class="nav-tabs">
-      <button class="tab active" data-cat="all">All</button>
-      <button class="tab" data-cat="tech">Tech</button>
-      <button class="tab" data-cat="cultural">Cultural</button>
-      <button class="tab" data-cat="sports">Sports</button>
-      <button class="tab" data-cat="online">Online</button>
-      <button class="tab" data-cat="offline">Offline</button>
-    </nav>
-    <button class="add-btn" onclick="showAddForm()">➕ Add Event</button>
-  </header>
+  <!-- 🔐 Auth Modal -->
+  <div id="authModal">
+    <div class="auth-box" id="loginBox">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button onclick="login()">Login</button>
+      <p>Don't have an account? <a onclick="showSignup()">Sign up</a></p>
+    </div>
 
-  <!-- 🔎 Search Bar -->
-  <section class="search-section">
-    <input type="text" id="searchBar" placeholder="Search events by name or college...">
-  </section>
+    <div class="auth-box" id="signupBox" style="display:none;">
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Full Name" required>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <button onclick="signup()">Sign Up</button>
+      <p>Already have an account? <a onclick="showLogin()">Login</a></p>
+    </div>
+  </div>
 
-  <!-- Event Cards -->
-  <main>
-    <section id="events-grid" class="cards-grid"></section>
-  </main>
+  <!-- 🌐 Your Events Portal -->
+  <div id="portal" style="display:none;">
+    <header class="site-header">
+      <h1 class="logo">College Events</h1>
+      <nav class="nav-tabs">
+        <button class="tab active" data-cat="all">All</button>
+        <button class="tab" data-cat="tech">Tech</button>
+        <button class="tab" data-cat="cultural">Cultural</button>
+        <button class="tab" data-cat="sports">Sports</button>
+        <button class="tab" data-cat="online">Online</button>
+        <button class="tab" data-cat="offline">Offline</button>
+      </nav>
+      <button class="add-btn" onclick="showAddForm()">➕ Add Event</button>
+      <button class="add-btn" style="background:#e74c3c;" onclick="logout()">🚪 Logout</button>
+    </header>
 
-  <!-- 📌 Add Event Form (Modal) -->
+    <!-- Search -->
+    <section class="search-section">
+      <input type="text" id="searchBar" placeholder="Search events by name or college...">
+    </section>
+
+    <!-- Event Cards -->
+    <main>
+      <section id="events-grid" class="cards-grid"></section>
+    </main>
+  </div>
+
+  <!-- Add Event Modal (same as before) -->
   <div id="addEventModal" class="modal">
     <div class="modal-content">
       <h2>Add New Event</h2>
@@ -57,6 +123,52 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // 🔑 Auth System
+    function showSignup() {
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("signupBox").style.display = "block";
+    }
+    function showLogin() {
+      document.getElementById("signupBox").style.display = "none";
+      document.getElementById("loginBox").style.display = "block";
+    }
+
+    function signup() {
+      const name = document.getElementById("signupName").value;
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+
+      if (!name || !email || !password) {
+        alert("Please fill all fields!");
+        return;
+      }
+      localStorage.setItem("user", JSON.stringify({ name, email, password }));
+      alert("Signup successful! Please login.");
+      showLogin();
+    }
+
+    function login() {
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      if (user && user.email === email && user.password === password) {
+        document.getElementById("authModal").style.display = "none";
+        document.getElementById("portal").style.display = "block";
+        renderEvents();
+      } else {
+        alert("Invalid credentials!");
+      }
+    }
+
+    function logout() {
+      document.getElementById("authModal").style.display = "flex";
+      document.getElementById("portal").style.display = "none";
+      showLogin();
+    }
+  </script>
 
   <script src="script.js"></script>
 </body>
