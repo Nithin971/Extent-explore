@@ -42,12 +42,7 @@ function logout() {
   showLogin();
 }
 
-// Sample Events
-let events = [
-  { name: "Hackathon 2025", college: "KBN College", date: "2025-09-10", category: "tech", mode: "offline", link: "#", image: "" },
-  { name: "Cultural Fest", college: "JNTU Kakinada", date: "2025-09-15", category: "cultural", mode: "offline", link: "#", image: "" },
-  { name: "Sports Meet", college: "Eluru Engg College", date: "2025-09-20", category: "sports", mode: "online", link: "#", image: "" }
-];
+
 
 const grid = document.getElementById("events-grid");
 const tabs = document.querySelectorAll(".tab");
@@ -150,4 +145,5 @@ function addEvent() {
 
 // Initial Render
 renderEvents();
+
 
