@@ -148,7 +148,27 @@ function addEvent() {
 
 // Initial Render
 renderEvents();
+// Feedback Modal
+const feedbackBtn = document.getElementById("feedbackBtn");
+const feedbackModal = document.getElementById("feedbackModal");
+const closeFeedback = document.getElementById("closeFeedback");
+const submitFeedback = document.getElementById("submitFeedback");
+const feedbackText = document.getElementById("feedbackText");
 
+feedbackBtn.addEventListener("click", () => {
+  feedbackModal.style.display = "flex";
+});
 
+closeFeedback.addEventListener("click", () => {
+  feedbackModal.style.display = "none";
+});
 
-
+submitFeedback.addEventListener("click", () => {
+  if (feedbackText.value.trim() === "") {
+    alert("Please write your feedback before submitting!");
+  } else {
+    alert("Thank you for your feedback: " + feedbackText.value);
+    feedbackText.value = "";
+    feedbackModal.style.display = "none";
+  }
+});
