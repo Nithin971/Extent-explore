@@ -1,3 +1,4 @@
+
 // 🔑 Auth System
 function showSignup() {
   document.getElementById("loginBox").style.display = "none";
@@ -21,6 +22,21 @@ function signup() {
   alert("Signup successful! Please login.");
   showLogin();
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const signupName = document.getElementById("signupName");
+  const signupEmail = document.getElementById("signupEmail");
+  const signupPassword = document.getElementById("signupPassword");
+
+  [signupName, signupEmail, signupPassword].forEach(input => {
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        signup(); // call signup function
+      }
+    });
+  });
+});
+
 
 function login() {
   const email = document.getElementById("loginEmail").value;
@@ -35,6 +51,20 @@ function login() {
     alert("Invalid credentials!");
   }
 }
+ document.addEventListener("DOMContentLoaded", function () {
+    const emailInput = document.getElementById("loginEmail");
+    const passwordInput = document.getElementById("loginPassword");
+
+    // Listen for Enter key on both inputs
+    [emailInput, passwordInput].forEach(input => {
+      input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // stop form submission/reload
+          login(); // call your login function
+        }
+      });
+    });
+  });
 
 function logout() {
   document.getElementById("authModal").style.display = "flex";
@@ -172,3 +202,4 @@ submitFeedback.addEventListener("click", () => {
     feedbackModal.style.display = "none";
   }
 });
+
