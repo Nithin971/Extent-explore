@@ -11,10 +11,10 @@
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background:url('Screenshot\ 2025-08-22\ 121831.png') no-repeat center center/cover;
-      height: 100vh;
+  height: 100vh;
   display: flex;
    justify-content: center;
-  align-items: center;
+  align-items:center;
     }
     .auth-box h2 { margin-bottom: 15px; }
     .auth-box input {
@@ -77,6 +77,21 @@
       </nav>
       <button class="add-btn" onclick="showAddForm()">➕ Add Event</button>
       <button class="add-btn" style="background:#e74c3c;" onclick="logout()">🚪 Logout</button>
+      <!-- Feedback Button -->
+<button id="feedbackBtn">💬 Feedback</button>
+
+<!-- Feedback Modal -->
+<div id="feedbackModal" class="modal">
+  <div class="modal-content">
+    <h3>Feedback</h3>
+    <textarea id="feedbackText" placeholder="Write your feedback..." rows="4"></textarea>
+    <div class="form-actions">
+      <button id="submitFeedback">Submit</button>
+      <button id="closeFeedback">Close</button>
+    </div>
+  </div>
+</div>
+<script></script>
     </header>
 
     <!-- Search -->
@@ -113,10 +128,9 @@
       <div class="form-actions">
         <button onclick="addEvent()">Add</button>
         <button onclick="closeAddForm()">Cancel</button>
-      </div>
+       </div>
     </div>
   </div>
-
   <script>
     // 🔑 Auth System
     function showSignup() {
@@ -166,5 +180,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
